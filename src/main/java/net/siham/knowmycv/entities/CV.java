@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 import java.util.List;
 @Entity
 public class CV {
-    @Id
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String about;
     @ElementCollection
-    private List<String> skill;
+    @CollectionTable(name="cv_skills" , joinColumns = @JoinColumn(name = "cv_id"))
+    @Column(name="skill_name")
+    private List<String> skills;
     @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL)
     private List<Experience> experiences;
     @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL)

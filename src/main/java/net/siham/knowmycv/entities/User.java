@@ -1,9 +1,15 @@
 package net.siham.knowmycv.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 import net.siham.knowmycv.enums.RoleType;
 
-@Entity
+@Entity @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

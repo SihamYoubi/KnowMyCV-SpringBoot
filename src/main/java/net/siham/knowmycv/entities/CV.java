@@ -1,10 +1,13 @@
 package net.siham.knowmycv.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 
 
 import java.util.List;
-@Entity
+@Entity @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder @ToString
 public class CV {
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

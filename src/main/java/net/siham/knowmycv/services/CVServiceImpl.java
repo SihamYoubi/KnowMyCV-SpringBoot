@@ -1,6 +1,8 @@
 package net.siham.knowmycv.services;
 
+import net.siham.knowmycv.dtos.CVDTO;
 import net.siham.knowmycv.entities.CV;
+import net.siham.knowmycv.mappers.CVMapperImpl;
 import net.siham.knowmycv.repositories.CVRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +12,18 @@ import java.util.List;
 public class CVServiceImpl implements CVService{
 
     private final CVRepository cvRepository;
+    private final CVMapperImpl cvMapper;
 
-    public CVServiceImpl (CVRepository cvRepository) {
+    public CVServiceImpl (CVRepository cvRepository, CVMapperImpl cvMapper) {
         this.cvRepository = cvRepository;
+        this.cvMapper = cvMapper;
     }
+
     @Override
-    public CV createCV(CV cv) {
-       return cvRepository.save(cv);
+    public CVDTO createCV(CVDTO CVDTO) {
+      CV cv =  cvMapper.fromCVDTOToCV(CVDTO);
+       CV savedCv = cvRepository.save(cv);
+       return cvMapper.fromCVToCVDTO(savedCv);
     }
 
     @Override
@@ -26,7 +33,7 @@ public class CVServiceImpl implements CVService{
 
     @Override
     public void deleteCV(Long id) {
-
+        cvRepository.deleteById(id);
     }
 
     @Override
